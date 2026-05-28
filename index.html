@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIMTUNE — Chiptuning Limanowa</title>
-<meta name="description" content="Limtune — profesjonalny chiptuning samochodów. Limanowa, Kościuszki 75a. Bezpieczne strojenie, hamownia drogowa, realne przyrosty mocy.">
+<title>LIMTUNE - Chiptuning Limanowa</title>
+<meta name="description" content="Limtune - profesjonalny chiptuning samochodów. Limanowa, Kościuszki 75a. Bezpieczne strojenie, hamownia drogowa, realne przyrosty mocy.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -132,6 +132,9 @@ nav.shrink{padding:12px clamp(20px,5vw,64px);background:rgba(7,8,9,.82)}
   opacity:0;transform:translateY(20px);animation:rise .8s .8s forwards;
 }
 @media(max-width:680px){.hero-services{grid-template-columns:1fr;gap:34px}}
+.hsvc{
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
 .hsvc h3{
   font-family:'Archivo Black',sans-serif;
   font-size:clamp(20px,2.4vw,30px);line-height:1;letter-spacing:-.02em;
@@ -170,7 +173,7 @@ section{position:relative}
 .feat h4{font-size:19px;color:var(--white);margin-bottom:6px;font-weight:800}
 .feat p{color:var(--smoke);font-size:15px}
 
-/* A-Z process — kompaktowy */
+/* A-Z process - kompaktowy */
 #proces{background:var(--carbon)}
 #proces .wrap{padding-top:clamp(56px,7vw,90px);padding-bottom:clamp(56px,7vw,90px)}
 .proc-head .h2{font-size:clamp(28px,4.5vw,52px)}
@@ -272,11 +275,11 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
 
 <nav id="nav">
   <a href="#top" class="brand">
-    <img src="src/logo.png" alt="LIMTUNE" class="brand-mark">
+    <img src="src/male.png" alt="LIMTUNE" class="brand-mark">
   </a>
   <div class="nav-links" id="navlinks">
     <a href="#czym">Czym jest chiptuning</a>
-    <a href="#proces">Proces A–Z</a>
+    <a href="#proces">Proces A-Z</a>
     <a href="#kontakt">Kontakt</a>
     <a href="katalog.html" class="nav-cta">Katalog Mocy →</a>
   </div>
@@ -293,7 +296,7 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
       <span class="l"><span>UKRYTĄ <em>MOC</em></span></span>
       <span class="l"><span>SWOJEGO AUTA</span></span>
     </h1>
-    <p class="hero-sub">Producent zostawia w sterowniku rezerwę. My ją <b>bezpiecznie uwalniamy</b> — indywidualne strojenie mapy, logowanie parametrów i pomiar na profesjonalnej hamowni drogowej. Realny przyrost mocy i momentu, lepsza dynamika, niższe spalanie.</p>
+    <p class="hero-sub">Producent zostawia w sterowniku rezerwę. My ją <b>bezpiecznie uwalniamy</b> - indywidualne strojenie mapy, logowanie parametrów i pomiar na profesjonalnej hamowni drogowej. Realny przyrost mocy i momentu, lepsza dynamika, niższe spalanie.</p>
     <div class="hero-actions">
       <a href="katalog.html" class="btn btn-primary">
         Sprawdź swoje auto
@@ -331,7 +334,7 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
   <div class="wrap">
     <div class="reveal czym-inner">
       <h2 class="h2">Czym jest <span style="color:var(--amber)">chiptuning?</span></h2>
-      <p class="lead">Chiptuning to modyfikacja oprogramowania sterownika silnika (ECU). Każde nowoczesne auto jest sterowane komputerem, który decyduje o dawce paliwa, ciśnieniu doładowania i kącie zapłonu. Producent celowo ustawia te parametry „na zapas” — pod różne rynki, jakość paliwa i serwisowanie.</p>
+      <p class="lead">Chiptuning to modyfikacja oprogramowania sterownika silnika (ECU). Każde nowoczesne auto jest sterowane komputerem, który decyduje o dawce paliwa, ciśnieniu doładowania i kącie zapłonu. Producent celowo ustawia te parametry „na zapas” - pod różne rynki, jakość paliwa i serwisowanie.</p>
       <p class="lead">My odczytujemy ten program, analizujemy go i piszemy <b style="color:var(--chalk)">nową, indywidualną mapę</b>, która bezpiecznie wykorzystuje fabryczną rezerwę jednostki napędowej.</p>
     </div>
   </div>
@@ -342,14 +345,14 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
   <div class="wrap">
     <div class="reveal proc-head">
       <h2 class="h2">Usługa od <span style="color:var(--amber)">A do Z</span></h2>
-      <p class="lead">Powtarzalny, kontrolowany proces w czterech etapach — od pomiaru wyjściowego po finalną weryfikację efektów.</p>
+      <p class="lead">Powtarzalny, kontrolowany proces w czterech etapach - od pomiaru wyjściowego po finalną weryfikację efektów.</p>
     </div>
 
     <div class="steps">
       <div class="step reveal">
         <span class="step-num">01</span>
         <h3>Pomiar mocy i momentu pojazdu</h3>
-        <p>Wyjściowy pomiar na hamowni — punkt odniesienia przed jakąkolwiek modyfikacją.</p>
+        <p>Wyjściowy pomiar na hamowni - punkt odniesienia przed jakąkolwiek modyfikacją.</p>
       </div>
       <div class="step reveal">
         <span class="step-num">02</span>
@@ -364,14 +367,14 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
       <div class="step reveal">
         <span class="step-num">04</span>
         <h3>Ponowny pomiar oraz diagnostyka</h3>
-        <p>Finalny pomiar i weryfikacja parametrów — czarno na białym potwierdzony przyrost mocy i momentu.</p>
+        <p>Finalny pomiar i weryfikacja parametrów - czarno na białym potwierdzony przyrost mocy i momentu.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA STRIP -->
-<div style="padding:0 clamp(20px,5vw,64px) 40px">
+<div style="padding:48px clamp(20px,5vw,64px);background:var(--carbon)">
   <div class="cta-strip reveal">
     <h3>Ciekawe, ile zyska Twoje auto?</h3>
     <a href="katalog.html" class="btn btn-dark">Otwórz Katalog Mocy →</a>
@@ -428,7 +431,7 @@ footer p{color:var(--smoke);font-size:13px;margin-top:10px;font-family:'Space Mo
           </div>
         </div>
         <div class="map-foot">
-          <div class="addr"><b>Limtune — Chiptuning Limanowa</b>Kościuszki 75a · 34-600 Limanowa</div>
+          <div class="addr"><b>Limtune - Chiptuning Limanowa</b>Kościuszki 75a · 34-600 Limanowa</div>
           <span class="btn btn-ghost" style="padding:12px 18px;font-size:13px;pointer-events:none">Otwórz w Mapach →</span>
         </div>
       </a>
