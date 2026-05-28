@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalog Mocy — LIMTUNE</title>
+<meta name="description" content="Sprawdź jakich przyrostów mocy i momentu możesz się spodziewać po chiptuningu Twojego auta w Limtune.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#070809;--carbon:#0d0f12;--steel:#15181d;--line:#1f242b;
+  --smoke:#6c7480;--chalk:#e8ebef;--white:#fafcff;
+  --amber:#0978fb;--amber-hot:#3d97ff;--ignite:#0050d6;--acid:#c8ff00;
+  --grad-power:linear-gradient(100deg,#0050d6 0%,#0978fb 45%,#3d97ff 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--chalk);font-family:'Archivo',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+::selection{background:var(--amber);color:#000}
+body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(20px,5vw,64px);background:rgba(7,8,9,.8);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-mark{height:30px;width:auto;flex:none;display:block;transition:opacity .25s}
+.brand:hover .brand-mark{opacity:.82}
+.nav-back{color:var(--smoke);text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px;padding:9px 16px;border:1px solid var(--line);border-radius:7px;transition:.25s}
+.nav-back:hover{color:var(--white);border-color:var(--amber)}
+
+.head{position:relative;padding:140px clamp(20px,5vw,64px) 50px;overflow:hidden}
+.head-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(9,120,251,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(9,120,251,.05) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 30% 0%,#000,transparent 70%)}
+.head-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,#0978fb,transparent 65%);filter:blur(120px);opacity:.32;top:-200px;right:-80px}
+.head-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto}
+.kicker{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.kicker::before{content:"";width:42px;height:1px;background:var(--amber)}
+.head h1{font-family:'Archivo Black',sans-serif;font-size:clamp(42px,8vw,96px);line-height:.9;letter-spacing:-.045em;color:var(--white)}
+.head h1 em{font-style:normal;color:transparent;background:var(--grad-power);-webkit-background-clip:text;background-clip:text}
+.head p{color:var(--smoke);font-size:clamp(15px,1.6vw,18px);max-width:60ch;margin-top:22px}
+
+.tool{max-width:1200px;margin:0 auto;padding:30px clamp(20px,5vw,64px) 120px;position:relative;z-index:2}
+
+/* selector steps */
+.selector{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+@media(max-width:760px){.selector{grid-template-columns:1fr}}
+.sel-box{background:var(--steel);border:1px solid var(--line);border-radius:14px;padding:20px;transition:.3s;position:relative}
+.sel-box.active{border-color:rgba(9,120,251,.5);box-shadow:0 0 0 1px rgba(9,120,251,.2),0 20px 50px -30px rgba(9,120,251,.6)}
+.sel-box.disabled{opacity:.4;pointer-events:none}
+.sel-lab{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sel-lab .n{width:20px;height:20px;border-radius:50%;background:rgba(9,120,251,.15);display:grid;place-items:center;font-size:10px;color:var(--amber-hot)}
+select{width:100%;background:var(--void);color:var(--white);border:1px solid var(--line);border-radius:9px;padding:14px 16px;font-family:'Archivo',sans-serif;font-size:16px;font-weight:600;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%230978fb' stroke-width='2.5'%3E%3Cpath d='M3 5l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;transition:.25s}
+select:hover{border-color:var(--amber)}
+select:focus{outline:none;border-color:var(--amber)}
+select:disabled{cursor:not-allowed;color:var(--smoke)}
+
+/* result */
+.result{min-height:200px}
+.placeholder{text-align:center;padding:80px 20px;border:1px dashed var(--line);border-radius:18px;color:var(--smoke)}
+.placeholder svg{width:54px;height:54px;color:var(--line);margin-bottom:18px}
+.placeholder b{display:block;color:var(--chalk);font-size:20px;margin-bottom:8px;font-family:'Archivo Black',sans-serif}
+
+.card{background:linear-gradient(160deg,var(--steel),var(--carbon));border:1px solid var(--line);border-radius:22px;overflow:hidden;animation:pop .5s cubic-bezier(.16,1,.3,1)}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:none}}
+.card-top{padding:clamp(24px,4vw,40px);display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.card-title h2{font-family:'Archivo Black',sans-serif;font-size:clamp(24px,3.5vw,38px);color:var(--white);letter-spacing:-.03em;line-height:1}
+.card-title .eng{color:var(--smoke);font-family:'Space Mono',monospace;font-size:14px;margin-top:8px;letter-spacing:.05em}
+.stage-badge{background:var(--grad-power);color:#0a0a0a;font-weight:800;font-size:13px;padding:9px 16px;border-radius:100px;letter-spacing:.05em;white-space:nowrap}
+
+.bars{padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,48px)}
+@media(max-width:680px){.bars{grid-template-columns:1fr}}
+.metric .m-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px}
+.metric .m-name{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--smoke)}
+.metric .m-gain{font-family:'Archivo Black',sans-serif;color:var(--acid);font-size:20px}
+.bar-row{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.bar-row .blab{font-family:'Space Mono',monospace;font-size:11px;color:var(--smoke);width:54px;flex:none;letter-spacing:.08em}
+.bar-track{flex:1;height:34px;background:var(--void);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:7px;width:0;transition:width 1.1s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;justify-content:flex-end;padding-right:12px}
+.bar-fill.stock{background:linear-gradient(90deg,#2a3038,#3a424c)}
+.bar-fill.tuned{background:var(--grad-power)}
+.bar-fill b{font-family:'Archivo Black',sans-serif;font-size:14px;color:#fff;white-space:nowrap;opacity:0;transition:opacity .4s .7s}
+.bar-fill.tuned b{color:#0a0a0a}
+.bar-fill.show b{opacity:1}
+
+.card-foot{padding:clamp(20px,3vw,32px) clamp(24px,4vw,40px);border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:rgba(9,120,251,.03)}
+.card-foot .note{color:var(--smoke);font-size:13px;max-width:48ch;line-height:1.5}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:15px;padding:15px 26px;border-radius:9px;cursor:pointer;border:0;transition:.25s;white-space:nowrap}
+.btn-primary{background:var(--grad-power);color:#0a0a0a;box-shadow:0 12px 40px -16px rgba(9,120,251,.8)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn svg{width:18px;height:18px}
+
+.disclaimer{margin-top:30px;text-align:center;color:var(--smoke);font-size:12px;font-family:'Space Mono',monospace;letter-spacing:.04em;line-height:1.7}
+footer{background:var(--void);border-top:1px solid var(--line);padding:40px clamp(20px,5vw,64px);text-align:center}
+footer .fbrand{font-family:'Archivo Black',sans-serif;font-size:18px;color:var(--white)}
+footer .fbrand b{color:var(--amber)}
+footer p{color:var(--smoke);font-size:13px;margin-top:8px;font-family:'Space Mono',monospace}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="brand">
+    <img src="lt_mark.png" alt="LIMTUNE" class="brand-mark">
+  </a>
+  <a href="index.html" class="nav-back"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M11 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg> Strona główna</a>
+</nav>
+
+<header class="head">
+  <div class="head-grid"></div>
+  <div class="head-glow"></div>
+  <div class="head-inner">
+    <div class="kicker">Baza danych pojazdów</div>
+    <h1>KATALOG <em>MOCY</em></h1>
+    <p>Wybierz markę, model i wersję silnika swojego auta, a pokażemy Ci szacowane przyrosty mocy i momentu obrotowego po profesjonalnym chiptuningu Stage 1 w Limtune.</p>
+  </div>
+</header>
+
+<main class="tool">
+  <div class="selector">
+    <div class="sel-box active" id="box1">
+      <div class="sel-lab"><span class="n">1</span> Marka</div>
+      <select id="selMake"><option value="">Wybierz markę…</option></select>
+    </div>
+    <div class="sel-box disabled" id="box2">
+      <div class="sel-lab"><span class="n">2</span> Model</div>
+      <select id="selModel" disabled><option value="">—</option></select>
+    </div>
+    <div class="sel-box disabled" id="box3">
+      <div class="sel-lab"><span class="n">3</span> Silnik</div>
+      <select id="selEngine" disabled><option value="">—</option></select>
+    </div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17h14M6 17V9a2 2 0 012-2h2l2-3h4l2 3h-2"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg>
+      <b>Wybierz swój samochód</b>
+      Uzupełnij pola powyżej, aby zobaczyć potencjał Twojego auta.
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    * Wartości szacunkowe dla Stage 1 na bazie typowych wyników. Faktyczny przyrost zależy od stanu jednostki, paliwa i wersji oprogramowania.<br>
+    Dokładny wynik potwierdzamy pomiarem na hamowni drogowej. Nie znalazłeś swojego auta? Zadzwoń: <span style="color:var(--amber)">696 774 691</span>.
+  </div>
+</main>
+
+<footer>
+  <div class="fbrand">LIM<b>TUNE</b></div>
+  <p>Chiptuning Limanowa · Kościuszki 75a · tel. 696 774 691</p>
+</footer>
+
+<script>
+// === BAZA DANYCH === stock = [KM, Nm], gain = [+KM, +Nm]
+const DB={
+  "Audi":{
+    "A3 (8V)":{"1.4 TFSI 150 KM":{s:[150,250],g:[35,70]},"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"2.0 TFSI 190 KM":{s:[190,320],g:[55,90]}},
+    "A4 (B9)":{"2.0 TDI 150 KM":{s:[150,320],g:[40,90]},"2.0 TDI 190 KM":{s:[190,400],g:[45,90]},"2.0 TFSI 252 KM":{s:[252,370],g:[55,90]}},
+    "A6 (C7)":{"3.0 TDI 272 KM":{s:[272,580],g:[60,110]},"2.0 TDI 190 KM":{s:[190,400],g:[45,90]}}
+  },
+  "BMW":{
+    "Seria 3 (F30)":{"320d 184 KM":{s:[184,380],g:[40,90]},"330d 258 KM":{s:[258,560],g:[55,110]},"320i 184 KM":{s:[184,270],g:[45,80]}},
+    "Seria 5 (G30)":{"520d 190 KM":{s:[190,400],g:[45,90]},"530d 265 KM":{s:[265,620],g:[55,100]}},
+    "X5 (G05)":{"30d 265 KM":{s:[265,620],g:[55,100]},"40i 340 KM":{s:[340,450],g:[60,100]}}
+  },
+  "Volkswagen":{
+    "Golf VII":{"1.6 TDI 110 KM":{s:[110,250],g:[30,70]},"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"GTI 2.0 TSI 220 KM":{s:[220,350],g:[50,90]},"GTD 2.0 TDI 184 KM":{s:[184,380],g:[40,90]}},
+    "Passat (B8)":{"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"2.0 TDI 190 KM":{s:[190,400],g:[45,90]},"2.0 TSI 280 KM":{s:[280,350],g:[50,90]}},
+    "Tiguan (II)":{"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"2.0 TSI 180 KM":{s:[180,320],g:[50,90]}}
+  },
+  "Škoda":{
+    "Octavia (III)":{"1.6 TDI 115 KM":{s:[115,250],g:[30,70]},"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"RS 2.0 TSI 230 KM":{s:[230,350],g:[50,90]}},
+    "Superb (III)":{"2.0 TDI 190 KM":{s:[190,400],g:[45,90]},"2.0 TSI 280 KM":{s:[280,350],g:[50,90]}},
+    "Kodiaq":{"2.0 TDI 150 KM":{s:[150,340],g:[40,90]},"2.0 TSI 190 KM":{s:[190,320],g:[50,90]}}
+  },
+  "Ford":{
+    "Focus (Mk3)":{"1.5 TDCi 120 KM":{s:[120,270],g:[28,60]},"2.0 TDCi 150 KM":{s:[150,370],g:[40,80]},"ST 2.0 EcoBoost 250 KM":{s:[250,360],g:[40,80]}},
+    "Mondeo (Mk5)":{"2.0 TDCi 150 KM":{s:[150,350],g:[40,80]},"2.0 TDCi 180 KM":{s:[180,400],g:[40,80]}}
+  },
+  "Mercedes-Benz":{
+    "Klasa C (W205)":{"C220d 194 KM":{s:[194,400],g:[40,90]},"C200 184 KM":{s:[184,300],g:[45,80]}},
+    "Klasa E (W213)":{"E220d 194 KM":{s:[194,400],g:[40,90]},"E350d 286 KM":{s:[286,600],g:[55,100]}}
+  },
+  "Opel":{
+    "Astra (K)":{"1.6 CDTi 136 KM":{s:[136,320],g:[30,70]},"1.4 Turbo 150 KM":{s:[150,245],g:[35,70]}},
+    "Insignia (B)":{"2.0 CDTi 170 KM":{s:[170,400],g:[40,80]},"2.0 Turbo 200 KM":{s:[200,350],g:[45,80]}}
+  }
+};
+
+const selMake=document.getElementById('selMake'),selModel=document.getElementById('selModel'),selEngine=document.getElementById('selEngine');
+const box2=document.getElementById('box2'),box3=document.getElementById('box3'),result=document.getElementById('result');
+
+Object.keys(DB).sort().forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=m;selMake.appendChild(o)});
+
+function reset(sel,ph){sel.innerHTML='<option value="">'+ph+'</option>'}
+
+selMake.addEventListener('change',()=>{
+  reset(selModel,'Wybierz model…');reset(selEngine,'—');
+  selEngine.disabled=true;box3.classList.remove('active');box3.classList.add('disabled');
+  showPlaceholder();
+  if(!selMake.value){selModel.disabled=true;box2.classList.add('disabled');box2.classList.remove('active');return}
+  Object.keys(DB[selMake.value]).forEach(md=>{const o=document.createElement('option');o.value=md;o.textContent=md;selModel.appendChild(o)});
+  selModel.disabled=false;box2.classList.remove('disabled');box2.classList.add('active');
+});
+
+selModel.addEventListener('change',()=>{
+  reset(selEngine,'Wybierz silnik…');showPlaceholder();
+  if(!selModel.value){selEngine.disabled=true;box3.classList.add('disabled');box3.classList.remove('active');return}
+  Object.keys(DB[selMake.value][selModel.value]).forEach(e=>{const o=document.createElement('option');o.value=e;o.textContent=e;selEngine.appendChild(o)});
+  selEngine.disabled=false;box3.classList.remove('disabled');box3.classList.add('active');
+});
+
+selEngine.addEventListener('change',()=>{
+  if(!selEngine.value){showPlaceholder();return}
+  render(selMake.value,selModel.value,selEngine.value);
+});
+
+function showPlaceholder(){
+  result.innerHTML='<div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17h14M6 17V9a2 2 0 012-2h2l2-3h4l2 3h-2"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg><b>Wybierz swój samochód</b>Uzupełnij pola powyżej, aby zobaczyć potencjał Twojego auta.</div>';
+}
+
+function render(make,model,eng){
+  const d=DB[make][model][eng];
+  const sPow=d.s[0],sTrq=d.s[1],tPow=sPow+d.g[0],tTrq=sTrq+d.g[1];
+  const maxPow=tPow*1.05,maxTrq=tTrq*1.05;
+  const pctSP=(sPow/maxPow*100),pctTP=(tPow/maxPow*100),pctST=(sTrq/maxTrq*100),pctTT=(tTrq/maxTrq*100);
+  result.innerHTML=`
+    <div class="card">
+      <div class="card-top">
+        <div class="card-title"><h2>${make} ${model}</h2><div class="eng">${eng}</div></div>
+        <span class="stage-badge">STAGE 1</span>
+      </div>
+      <div class="bars">
+        <div class="metric">
+          <div class="m-head"><span class="m-name">Moc</span><span class="m-gain">+${d.g[0]} KM</span></div>
+          <div class="bar-row"><span class="blab">SERYJ.</span><div class="bar-track"><div class="bar-fill stock" data-w="${pctSP}"><b>${sPow} KM</b></div></div></div>
+          <div class="bar-row"><span class="blab">LIMTUNE</span><div class="bar-track"><div class="bar-fill tuned" data-w="${pctTP}"><b>${tPow} KM</b></div></div></div>
+        </div>
+        <div class="metric">
+          <div class="m-head"><span class="m-name">Moment</span><span class="m-gain">+${d.g[1]} Nm</span></div>
+          <div class="bar-row"><span class="blab">SERYJ.</span><div class="bar-track"><div class="bar-fill stock" data-w="${pctST}"><b>${sTrq} Nm</b></div></div></div>
+          <div class="bar-row"><span class="blab">LIMTUNE</span><div class="bar-track"><div class="bar-fill tuned" data-w="${pctTT}"><b>${tTrq} Nm</b></div></div></div>
+        </div>
+      </div>
+      <div class="card-foot">
+        <div class="note">Szacunkowe wartości Stage 1. Finalny wynik dla Twojego egzemplarza potwierdzamy pomiarem na hamowni drogowej.</div>
+        <a href="index.html#kontakt" class="btn btn-primary">Umów modyfikację <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>`;
+  requestAnimationFrame(()=>{
+    result.querySelectorAll('.bar-fill').forEach((b,i)=>{
+      setTimeout(()=>{b.style.width=b.dataset.w+'%';b.classList.add('show')},80+i*120);
+    });
+  });
+}
+</script>
+</body>
+</html>
